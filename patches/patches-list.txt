@@ -7,3 +7,4 @@ rainbowtags = ok
 underlinetags = ok
 swallow = ok
 bar-height = ok
+notitle = ok
