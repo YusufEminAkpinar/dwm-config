@@ -1,0 +1,4 @@
+layoutmenu = ok
+cfacts-vanitygaps = ok
+cyclelayouts = ok
+restartsig = ok
