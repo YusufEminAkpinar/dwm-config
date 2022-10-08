@@ -4,3 +4,5 @@ cyclelayouts = ok
 restartsig = ok
 preserveonrestart = ok
 rainbowtags = ok
+underlinetags = ok
+swallow = ok
