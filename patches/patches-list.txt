@@ -2,3 +2,5 @@ layoutmenu = ok
 cfacts-vanitygaps = ok
 cyclelayouts = ok
 restartsig = ok
+preserveonrestart = ok
+rainbowtags = ok
