@@ -17,7 +17,7 @@ static const int showsystray        = 1;     /* 0 means no systray */
 static const int showbar            = 1;     /* 0 means no bar */
 static const int topbar             = 1;     /* 0 means bottom bar */
 static const int user_bh            = 20;        /* 0 means that dwm will calculate bar height, >= 1 means dwm will user_bh as bar height */
-static const char *fonts[]          = { "monospace:size=10" };
+static const char *fonts[]          = {"monospace:size=10", "fontawesome:size=10", "NerdFonts:size=12"};
 static const char dmenufont[]       = "monospace:size=10";
 static const char col_gray1[]       = "#222222";
 static const char col_darkBlue[]    = "#010021";
@@ -27,6 +27,7 @@ static const char col_gray3[]       = "#bbbbbb";
 static const char col_gray4[]       = "#eeeeee";
 static const char col_cyan[]        = "#005577";
 static const char col_yellow[]	    = "#eff54e";
+static const char col_white[]	    = "#ffffff";
 
 static const char *colors[][3]      = {
 	/*               fg         bg         border   */
@@ -39,6 +40,7 @@ static const char *tags[] = { "[www]", "[dev]", "[dc]", "[game]", "5", "6", "7",
 static const char *upvol[]   = { "amixer", "set", "Master", "5%+",     NULL };
 static const char *downvol[] = { "amixer", "set", "Master", "5%-",     NULL };
 static const char *mutevol[] = { "amixer", "set", "Master", "toggle", NULL };
+static const char *killbar[] = { "killbar.sh" }; // path to killbar script
 static const char *brightdown[] = {"brightnessctl", "set", "10%-" };
 static const char *brightup[] = {"brightnessctl", "set", "10%+" };
 
@@ -157,6 +159,8 @@ static const Key keys[] = {
 	{ MODKEY|ShiftMask,             XK_space,  togglefloating, {0} },
 	{ MODKEY,                       XK_0,      view,           {.ui = ~0 } },
 	{ MODKEY,                       XK_Right,  spawn,          {.v = upvol   } },
+	{ MODKEY,                       XK_Right,  spawn,          {.v = killbar   } },
+	{ MODKEY,                       XK_Left,   spawn,          {.v = killbar   } },
 	{ MODKEY,                       XK_Left,   spawn,          {.v = downvol } },
 	{ MODKEY,                       XK_End,    spawn,          {.v = mutevol } },
 	{ MODKEY,			XK_Up,     spawn,	   {.v = brightup} },
