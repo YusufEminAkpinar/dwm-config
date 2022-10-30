@@ -14,16 +14,16 @@ static const int topbar             = 1;        /* 0 means bottom bar */
 static const int vertpad            = 10;       /* vertical padding of bar */
 static const int sidepad            = 10;       /* horizontal padding of bar */
 static const int user_bh            = 25;        /* 0 means that dwm will calculate bar height, >= 1 means dwm will user_bh as bar height */
-static const char *fonts[]          = { "monospace:size=10", "fontawesome:size=10", "NerdFonts:size=12" };
+static const char *fonts[]          = { "monospace:size=10", "fontawesome:size=12", "NerdFonts:size=12" };
 static const char dmenufont[]       = "monospace:size=10";
 static const char col_gray1[]       = "#222222";
-static const char col_darkBlue[]    = "#010021";
-static const char col_black[]	    = "#000000";
+static const char col_darkBlue[]    = "#1c1c1f";
+static const char col_black[]       = "#000000";
 static const char col_gray2[]       = "#444444";
 static const char col_gray3[]       = "#bbbbbb";
 static const char col_gray4[]       = "#eeeeee";
 static const char col_cyan[]        = "#005577";
-static const char col_yellow[]	    = "#eff54e";
+static const char col_yellow[]      = "#eff54e";
 
 static const char *colors[][3]      = {
 	/*               fg         bg         border   */
@@ -32,12 +32,7 @@ static const char *colors[][3]      = {
 };
 
 /* tagging */
-static const char *tags[] = { "[web]", "[dev]", "[dc]", "[math]", "[mon]", "6", "7", "8", "[game]" };
-static const char *upvol[]   = { "amixer", "set", "Master", "5%+",     NULL };
-static const char *downvol[] = { "amixer", "set", "Master", "5%-",     NULL };
-static const char *mutevol[] = { "amixer", "set", "Master", "toggle", NULL };
-static const char *brightdown[] = {"brightnessctl", "set", "10%-" };
-static const char *brightup[] = {"brightnessctl", "set", "10%+" };
+static const char *tags[]       = { "[web]", "[dev]", "[dc]", "[math]", "[mon]", "6", "7", "8", "[game]" };
 
 static const char *tagsel[][2] = {
 	{ "#ffffff", "#ff0000" },
@@ -112,11 +107,18 @@ static const Layout layouts[] = {
 static const char *dmenucmd[] = { "dmenu_run", "-fn", dmenufont, "-nb", col_gray1, "-nf", col_gray3, "-sb", col_cyan, "-sf", col_gray4, NULL };
 static const char *termcmd[]  = { "alacritty", NULL };
 static const char *layoutmenu_cmd = "layoutmenu.sh";
- 
+static const char *upvol[]      = { "amixer", "set", "Master", "5%+",     NULL };
+static const char *downvol[]    = { "amixer", "set", "Master", "5%-",     NULL };
+static const char *mutevol[]    = { "amixer", "set", "Master", "toggle", NULL };
+static const char *brightdown[] = {"brightnessctl", "set", "10%-" };
+static const char *brightup[]   = {"brightnessctl", "set", "10%+" };
+static const char *rofi_drun[]  = {"rofi", "-show", "drun"};
+
 #include "shiftview.c"
 static const Key keys[] = {
 	/* modifier                     key        function        argument */
-	{ MODKEY,                       XK_p,      spawn,          {.v = dmenucmd } },
+	{ MODKEY,                       XK_p,      spawn,          {.v = rofi_drun } },
+  { MODKEY|ShiftMask,             XK_p,      spawn,          {.v = dmenucmd} },
 	{ MODKEY|ShiftMask,             XK_Return, spawn,          {.v = termcmd } },
 	{ MODKEY,                       XK_b,      togglebar,      {0} },
 	{ MODKEY,                       XK_j,      focusstack,     {.i = +1 } },
@@ -149,16 +151,19 @@ static const Key keys[] = {
 	{ MODKEY|ShiftMask,             XK_c,      killclient,     {0} },
 	{ MODKEY,                       XK_t,      setlayout,      {.v = &layouts[0]} },
 	{ MODKEY,                       XK_f,      setlayout,      {.v = &layouts[1]} },
-	{ MODKEY,			XK_m,	   shiftview,	   {.i = +1 } },
-	{ MODKEY,			XK_n,      shiftview,	   {.i = -1 } },
+	{ MODKEY|ControlMask,           XK_comma,  cyclelayout,    {.i = -1 } },
+	{ MODKEY|ControlMask,           XK_period, cyclelayout,    {.i = +1 } },
+	{ MODKEY,                       XK_m,      shiftview,      {.i = +1 } },
+	{ MODKEY,                       XK_n,      shiftview,      {.i = -1 } },
 	{ MODKEY,                       XK_space,  setlayout,      {0} },
 	{ MODKEY|ShiftMask,             XK_space,  togglefloating, {0} },
 	{ MODKEY,                       XK_0,      view,           {.ui = ~0 } },
 	{ MODKEY,                       XK_Right,  spawn,          {.v = upvol   } },
 	{ MODKEY,                       XK_Left,   spawn,          {.v = downvol } },
 	{ MODKEY,                       XK_End,    spawn,          {.v = mutevol } },
-	{ MODKEY,			XK_Up,     spawn,	   {.v = brightup} },
-	{ MODKEY,			XK_Down,   spawn,	   {.v = brightdown} },
+	{ MODKEY,                       XK_Up,     spawn,          {.v = brightup} },
+	{ MODKEY,                       XK_Down,   spawn,          {.v = brightdown} },
+	{ MODKEY|ShiftMask,             XK_s,      spawn,          SHCMD("flameshot gui") },
 	{ MODKEY|ShiftMask,             XK_0,      tag,            {.ui = ~0 } },
 	{ MODKEY,                       XK_comma,  focusmon,       {.i = -1 } },
 	{ MODKEY,                       XK_period, focusmon,       {.i = +1 } },
